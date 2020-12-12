@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Controls;
 using System.Windows.Documents;
 
 namespace Leopold95.Parser
