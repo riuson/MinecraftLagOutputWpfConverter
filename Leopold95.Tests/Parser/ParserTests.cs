@@ -123,6 +123,35 @@ namespace Leopold95.Tests
             Assert.That(parsedPart is IUnderlinePart, Is.EqualTo(isUnderline));
         }
 
+        [Test]
+        public void CanConvertString()
+        {
+            // Arrange.
+            var parser = new Parser.Parser();
+            /*
+             * §6Uptime:§c 58 minutes 14 seconds
+             * §6Current TPS = §a20
+             */
+            var expected = new IPart[]
+            {
+                new ColorPart(Colors.Brown),
+                new TextPart("Uptime:"),
+                new ColorPart(Colors.Red),
+                new TextPart(" 58 minutes 14 seconds"),
+                new NewLineResetPart(),
+                new ColorPart(Colors.Brown),
+                new TextPart("Current TPS = "),
+                new ColorPart(Colors.Green),
+                new TextPart("20")
+            };
+
+            // Act.
+            var actual = parser.ConvertParts(parser.Split(_sample2));
+
+            // Assert.
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
         private string ReadResource(string resourceName)
         {
             var assembly = Assembly.GetExecutingAssembly();
