@@ -3,8 +3,4 @@
     public interface INewLineResetPart
     {
     }
-
-    class NewLineResetPart : INewLineResetPart
-    {
-    }
 }

@@ -2,6 +2,5 @@
 {
     public interface IBoldPart : IPart
     {
-        bool Bold { get; }
     }
 }

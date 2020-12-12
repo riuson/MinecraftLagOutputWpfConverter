@@ -28,7 +28,8 @@ namespace Leopold95.Tests
         {
             // Arrange.
             var parser = new Parser.Parser();
-            var expected = new[] {"§6", "Uptime:", "§c", " 58 minutes 14 seconds", "\n", "§6", "Current TPS = ", "§a", "20" };
+            var expected = new[]
+                {"§6", "Uptime:", "§c", " 58 minutes 14 seconds", "\n", "§6", "Current TPS = ", "§a", "20"};
 
             // Act.
             var actual = parser.Split(_sample2);
@@ -106,9 +107,6 @@ namespace Leopold95.Tests
 
             // Assert.
             Assert.That(parsedPart is IBoldPart, Is.EqualTo(isBold));
-
-            if (parsedPart is IBoldPart boldPart)
-                Assert.That(boldPart.Bold, Is.EqualTo(isBold));
         }
 
         [TestCase("§l", false)]
@@ -123,9 +121,6 @@ namespace Leopold95.Tests
 
             // Assert.
             Assert.That(parsedPart is IUnderlinePart, Is.EqualTo(isUnderline));
-
-            if (parsedPart is IUnderlinePart underlinePart)
-                Assert.That(underlinePart.Underline, Is.EqualTo(isUnderline));
         }
 
         private string ReadResource(string resourceName)
