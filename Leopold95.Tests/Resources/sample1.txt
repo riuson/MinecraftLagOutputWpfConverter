@@ -1,0 +1,8 @@
+§6Uptime:§c 58 minutes 14 seconds
+§6Current TPS = §a20
+§6Maximum memory:§c 3,641 MB.
+§6Allocated memory:§c 590 MB.
+§6Free memory:§c 197 MB.
+§6World "§cworld§6": §c905§6 chunks, §c327§6 entities, §c1,627§6 tiles.
+§6Nether "§cworld_nether§6": §c289§6 chunks, §c24§6 entities, §c431§6 tiles.
+§6The End "§cworld_the_end§6": §c289§6 chunks, §c0§6 entities, §c32§6 tiles.
