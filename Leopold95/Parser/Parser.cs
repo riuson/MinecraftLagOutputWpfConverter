@@ -23,12 +23,12 @@ namespace Leopold95.Parser
             };
         }
 
-        public FlowDocument Convert(string consoleOutput)
+        public Paragraph Convert(string consoleOutput)
         {
-            return new FlowDocument();
+            return new Paragraph();
         }
 
-        public IEnumerable<string> Split(string consoleOutput)
+        internal IEnumerable<string> Split(string consoleOutput)
         {
             var regexCommand = new Regex(_options.CommandCharacter + ".{1}");
             var regexNewLine = new Regex(@"[\r\n]{1,2}");
@@ -58,7 +58,7 @@ namespace Leopold95.Parser
             return result;
         }
 
-        public IPart ConvertPart(string part)
+        internal IPart ConvertPart(string part)
         {
             foreach (var partCreator in _partCreators.Where(x => !x.IsContent))
                 if (partCreator.CanHandle(part))
@@ -71,7 +71,7 @@ namespace Leopold95.Parser
             throw new ParserException($"Failed to parse part '{part}'");
         }
 
-        public IEnumerable<IPart> ConvertParts(IEnumerable<string> parts)
+        internal IEnumerable<IPart> ConvertParts(IEnumerable<string> parts)
         {
             return parts.Select(ConvertPart);
         }
