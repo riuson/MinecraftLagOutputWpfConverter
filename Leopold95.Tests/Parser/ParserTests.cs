@@ -1,6 +1,8 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Windows.Documents;
 using System.Windows.Media;
 using Leopold95.Parser;
 using NUnit.Framework;
@@ -150,6 +152,27 @@ namespace Leopold95.Tests
 
             // Assert.
             Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void CanConvertStringToParagraph()
+        {
+            // Arrange.
+            var parser = new Parser.Parser();
+
+            // Act.
+            var actual = parser.Convert(_sample2);
+
+            // Assert.
+            Assert.That(actual, Is.TypeOf<Paragraph>());
+            Assert.That(actual.Inlines.Count, Is.EqualTo(5));
+            var spans = actual.Inlines.OfType<Span>();
+            Assert.That(spans.Count, Is.EqualTo(5));
+
+            Assert.That((spans.ElementAt(0).Foreground as SolidColorBrush).Color, Is.EqualTo(Colors.Olive));
+            Assert.That((spans.ElementAt(1).Foreground as SolidColorBrush).Color, Is.EqualTo(Colors.Red));
+            Assert.That((spans.ElementAt(3).Foreground as SolidColorBrush).Color, Is.EqualTo(Colors.Olive));
+            Assert.That((spans.ElementAt(4).Foreground as SolidColorBrush).Color, Is.EqualTo(Colors.Green));
         }
 
         private string ReadResource(string resourceName)

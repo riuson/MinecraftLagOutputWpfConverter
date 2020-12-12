@@ -1,6 +1,6 @@
 ﻿namespace Leopold95.Parser
 {
-    internal class NewLineResetPart : INewLineResetPart
+    internal class NewLineResetPart : INewLineResetPart, IResetModifiers
     {
         public override bool Equals(object? other)
         {

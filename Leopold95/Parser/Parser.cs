@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Controls;
 using System.Windows.Documents;
 
 namespace Leopold95.Parser
@@ -25,7 +26,33 @@ namespace Leopold95.Parser
 
         public Paragraph Convert(string consoleOutput)
         {
-            return new Paragraph();
+            var stringParts = Split(consoleOutput);
+            var parsedParts = ConvertParts(stringParts);
+
+            var spans = new List<Span>();
+            var modifiers = new List<ISetModifiers>();
+
+            foreach (var parsedPart in parsedParts)
+            {
+                if (parsedPart is ISetModifiers sm) modifiers.Add(sm);
+
+                if (parsedPart is IResetModifiers _)
+                {
+                    modifiers.Clear();
+                    spans.Add(new Span(new LineBreak()));
+                }
+
+                if (parsedPart is IContent c)
+                {
+                    var spanContent = c.CreateContent();
+                    modifiers.ForEach(sm => sm.SetModifiers(spanContent));
+                    spans.Add(spanContent);
+                }
+            }
+
+            var paragraph = new Paragraph();
+            paragraph.Inlines.AddRange(spans);
+            return paragraph;
         }
 
         internal IEnumerable<string> Split(string consoleOutput)
@@ -75,10 +102,5 @@ namespace Leopold95.Parser
         {
             return parts.Select(ConvertPart);
         }
-    }
-
-    public class ParserOptions : IParserOptions
-    {
-        public char CommandCharacter => '§';
     }
 }

@@ -1,8 +1,9 @@
-﻿using System.Windows.Media;
+﻿using System.Windows.Documents;
+using System.Windows.Media;
 
 namespace Leopold95.Parser
 {
-    internal class ColorPart : IColorPart
+    internal class ColorPart : IColorPart, ISetModifiers
     {
         public ColorPart(Color color)
         {
@@ -10,6 +11,11 @@ namespace Leopold95.Parser
         }
 
         public Color Color { get; }
+
+        public void SetModifiers(Span span)
+        {
+            span.Foreground = new SolidColorBrush(Color);
+        }
 
         public override bool Equals(object? other)
         {
