@@ -64,7 +64,7 @@ namespace Leopold95.Tests
         [TestCase("§3", "DarkCyan")]
         [TestCase("§4", "DarkRed")]
         [TestCase("§5", "DarkMagenta")]
-        [TestCase("§6", "Brown")]
+        [TestCase("§6", "Olive")]
         [TestCase("§7", "Gray")]
         [TestCase("§8", "DarkGray")]
         [TestCase("§9", "Blue")]
@@ -136,12 +136,12 @@ namespace Leopold95.Tests
              */
             var expected = new IPart[]
             {
-                new ColorPart(Colors.Brown),
+                new ColorPart(Colors.Olive),
                 new TextPart("Uptime:"),
                 new ColorPart(Colors.Red),
                 new TextPart(" 58 minutes 14 seconds"),
                 new NewLineResetPart(),
-                new ColorPart(Colors.Brown),
+                new ColorPart(Colors.Olive),
                 new TextPart("Current TPS = "),
                 new ColorPart(Colors.Green),
                 new TextPart("20")

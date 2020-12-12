@@ -12,7 +12,7 @@ namespace Leopold95.Parser
             System.Windows.Media.Colors.DarkCyan,
             System.Windows.Media.Colors.DarkRed,
             System.Windows.Media.Colors.DarkMagenta,
-            System.Windows.Media.Colors.Brown,
+            System.Windows.Media.Colors.Olive,
             System.Windows.Media.Colors.Gray,
             System.Windows.Media.Colors.DarkGray,
             System.Windows.Media.Colors.Blue,
