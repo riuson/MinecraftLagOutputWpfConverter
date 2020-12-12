@@ -1,6 +1,6 @@
 ﻿namespace Leopold95.Parser
 {
-    public interface INewLineResetPart
+    public interface INewLineResetPart : IPart
     {
     }
 }

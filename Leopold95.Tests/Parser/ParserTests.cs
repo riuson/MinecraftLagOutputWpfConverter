@@ -38,13 +38,13 @@ namespace Leopold95.Tests
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [TestCase("§6", ExpectedResult = typeof(IColorPart))]
-        [TestCase("§c", ExpectedResult = typeof(IColorPart))]
-        [TestCase("Uptime", ExpectedResult = typeof(ITextPart))]
-        [TestCase("\n", ExpectedResult = typeof(INewLineResetPart))]
-        [TestCase("\r", ExpectedResult = typeof(INewLineResetPart))]
-        [TestCase("\r\n", ExpectedResult = typeof(INewLineResetPart))]
-        public Type CanConvertPart(string part)
+        [TestCase("§6", typeof(IColorPart))]
+        [TestCase("§c", typeof(IColorPart))]
+        [TestCase("Uptime", typeof(ITextPart))]
+        [TestCase("\n", typeof(INewLineResetPart))]
+        [TestCase("\r", typeof(INewLineResetPart))]
+        [TestCase("\r\n", typeof(INewLineResetPart))]
+        public void CanConvertPart(string part, Type type)
         {
             // Arrange.
             var parser = new Parser.Parser();
@@ -53,23 +53,23 @@ namespace Leopold95.Tests
             var parsedPart = parser.ConvertPart(part);
 
             // Assert.
-            return parsedPart.GetType();
+            Assert.That(parsedPart, Is.AssignableTo(type));
         }
 
         [TestCase("§0", "Black")]
-        [TestCase("§1", "Blue")]
-        [TestCase("§2", "Green")]
-        [TestCase("§3", "Cyan")]
-        [TestCase("§4", "Red")]
-        [TestCase("§5", "Magenta")]
+        [TestCase("§1", "DarkBlue")]
+        [TestCase("§2", "DarkGreen")]
+        [TestCase("§3", "DarkCyan")]
+        [TestCase("§4", "DarkRed")]
+        [TestCase("§5", "DarkMagenta")]
         [TestCase("§6", "Brown")]
-        [TestCase("§7", "LightGray")]
+        [TestCase("§7", "Gray")]
         [TestCase("§8", "DarkGray")]
-        [TestCase("§9", "LightBlue")]
-        [TestCase("§a", "LightGreen")]
-        [TestCase("§b", "LightCyan")]
-        [TestCase("§c", "LightRed")]
-        [TestCase("§d", "LightMagenta")]
+        [TestCase("§9", "Blue")]
+        [TestCase("§a", "Green")]
+        [TestCase("§b", "Cyan")]
+        [TestCase("§c", "Red")]
+        [TestCase("§d", "Magenta")]
         [TestCase("§e", "Yellow")]
         [TestCase("§f", "White")]
         public void CanConvertColor(string part, string colorName)

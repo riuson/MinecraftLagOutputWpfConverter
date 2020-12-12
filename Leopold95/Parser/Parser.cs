@@ -9,6 +9,19 @@ namespace Leopold95.Parser
     public class Parser
     {
         private const char CommandCharacter = '§';
+        private readonly IEnumerable<IPartCreator> _partCreators;
+
+        public Parser()
+        {
+            _partCreators = new IPartCreator[]
+            {
+                new BoldPartCreator(),
+                new ColorPartCreator(),
+                new NewLineResetPartCreator(),
+                new UnderlinePartCreator(),
+                new TextPartCreator()
+            };
+        }
 
         public FlowDocument Convert(string consoleOutput)
         {
@@ -47,7 +60,15 @@ namespace Leopold95.Parser
 
         public IPart ConvertPart(string part)
         {
-            throw new NotImplementedException();
+            foreach (var partCreator in _partCreators.Where(x => !x.Fallback))
+                if (partCreator.CanHandle(part))
+                    return partCreator.Create(part);
+
+            foreach (var partCreator in _partCreators.Where(x => x.Fallback))
+                if (partCreator.CanHandle(part))
+                    return partCreator.Create(part);
+
+            throw new ParserException($"Failed to parse part '{part}'");
         }
 
         public IEnumerable<IPart> ConvertParts(IEnumerable<string> parts)
