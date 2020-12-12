@@ -6,11 +6,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <RichTextBox>
-            <FlowDocument>
-                <Paragraph>
-                    <Span TextDecorations="Italic" Foreground="Green" FontWeight="Bold" FontStyle="Italic">test</Span>
-                </Paragraph>
+        <RichTextBox Background="Black">
+            <FlowDocument x:Name="FlowDocumentConsoleOutput">
+                
             </FlowDocument>
         </RichTextBox>
     </Grid>
