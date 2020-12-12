@@ -29,7 +29,7 @@ namespace Leopold95.Tests
             // Arrange.
             var parser = new Parser.Parser();
             var expected = new[]
-                {"§6", "Uptime:", "§c", " 58 minutes 14 seconds", "\n", "§6", "Current TPS = ", "§a", "20"};
+                {"§6", "Uptime:", "§c", " 58 minutes 14 seconds", "\r\n", "§6", "Current TPS = ", "§a", "20"};
 
             // Act.
             var actual = parser.Split(_sample2);
