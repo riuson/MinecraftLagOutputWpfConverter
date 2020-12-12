@@ -12,6 +12,6 @@
             return new TextPart(part);
         }
 
-        public bool Fallback => true;
+        public bool IsContent => true;
     }
 }

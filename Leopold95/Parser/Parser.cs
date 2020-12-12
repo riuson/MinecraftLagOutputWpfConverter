@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Documents;
@@ -8,17 +7,18 @@ namespace Leopold95.Parser
 {
     public class Parser
     {
-        private const char CommandCharacter = '§';
+        private readonly IParserOptions _options;
         private readonly IEnumerable<IPartCreator> _partCreators;
 
         public Parser()
         {
+            _options = new ParserOptions();
             _partCreators = new IPartCreator[]
             {
-                new BoldPartCreator(),
-                new ColorPartCreator(),
+                new BoldPartCreator(_options),
+                new ColorPartCreator(_options),
                 new NewLineResetPartCreator(),
-                new UnderlinePartCreator(),
+                new UnderlinePartCreator(_options),
                 new TextPartCreator()
             };
         }
@@ -30,7 +30,7 @@ namespace Leopold95.Parser
 
         public IEnumerable<string> Split(string consoleOutput)
         {
-            var regexCommand = new Regex(CommandCharacter + ".{1}");
+            var regexCommand = new Regex(_options.CommandCharacter + ".{1}");
             var regexNewLine = new Regex(@"[\r\n]{1,2}");
 
             var commandMatches = regexCommand.Matches(consoleOutput);
@@ -60,11 +60,11 @@ namespace Leopold95.Parser
 
         public IPart ConvertPart(string part)
         {
-            foreach (var partCreator in _partCreators.Where(x => !x.Fallback))
+            foreach (var partCreator in _partCreators.Where(x => !x.IsContent))
                 if (partCreator.CanHandle(part))
                     return partCreator.Create(part);
 
-            foreach (var partCreator in _partCreators.Where(x => x.Fallback))
+            foreach (var partCreator in _partCreators.Where(x => x.IsContent))
                 if (partCreator.CanHandle(part))
                     return partCreator.Create(part);
 
@@ -73,7 +73,12 @@ namespace Leopold95.Parser
 
         public IEnumerable<IPart> ConvertParts(IEnumerable<string> parts)
         {
-            throw new NotImplementedException();
+            return parts.Select(ConvertPart);
         }
+    }
+
+    public class ParserOptions : IParserOptions
+    {
+        public char CommandCharacter => '§';
     }
 }

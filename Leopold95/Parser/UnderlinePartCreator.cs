@@ -2,8 +2,17 @@
 {
     internal class UnderlinePartCreator : IPartCreator
     {
+        private readonly IParserOptions _options;
+
+        public UnderlinePartCreator(IParserOptions options)
+        {
+            _options = options;
+        }
+
         public bool CanHandle(string part)
         {
+            if (!part.StartsWith(_options.CommandCharacter)) return false;
+
             if (part.Length != 2) return false;
 
             var ch = part[1];
@@ -16,6 +25,6 @@
             return new UnderlinePart();
         }
 
-        public bool Fallback => false;
+        public bool IsContent => false;
     }
 }

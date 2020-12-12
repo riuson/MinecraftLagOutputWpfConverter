@@ -21,6 +21,6 @@ namespace Leopold95.Parser
             return new NewLineResetPart();
         }
 
-        public bool Fallback => false;
+        public bool IsContent => false;
     }
 }

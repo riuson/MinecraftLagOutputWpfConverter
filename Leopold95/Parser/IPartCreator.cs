@@ -2,7 +2,7 @@
 {
     public interface IPartCreator
     {
-        bool Fallback { get; }
+        bool IsContent { get; }
         bool CanHandle(string part);
         IPart Create(string part);
     }
